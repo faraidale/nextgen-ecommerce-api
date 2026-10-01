@@ -11,6 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/products', require('./routes/products'));
 
 app.get('/', (req, res) => {
     res.send('Welcome to the NextGen E-Commerce API');
