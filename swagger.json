@@ -116,10 +116,155 @@
                     }
                 }
             }
+        },
+        "/orders": {
+            "get": {
+                "summary": "Get all orders",
+                "description": "Returns all orders.",
+                "responses": {
+                    "200": {
+                        "description": "Orders retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Order"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create an order",
+                "description": "Creates an order.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Order created successfully."
+                    }
+                }
+            }
+        },
+        "/orders/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "The order ID.",
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get an order by ID",
+                "description": "Returns a single order by ID.",
+                "responses": {
+                    "200": {
+                        "description": "Order retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Order"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update an order",
+                "description": "Replaces an order by ID.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Order updated successfully."
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete an order",
+                "description": "Deletes an order by ID.",
+                "responses": {
+                    "204": {
+                        "description": "Order deleted successfully."
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "OrderInput": {
+                "type": "object",
+                "required": [
+                    "orderId",
+                    "userId",
+                    "productId",
+                    "quantity",
+                    "orderStatus",
+                    "orderDate"
+                ],
+                "properties": {
+                    "orderId": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "string"
+                    },
+                    "productId": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    },
+                    "orderStatus": {
+                        "type": "string"
+                    },
+                    "orderDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "Order": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/OrderInput"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "_id": {
+                                "type": "string",
+                                "description": "MongoDB order ID."
+                            }
+                        }
+                    }
+                ]
+            },
             "ProductInput": {
                 "type": "object",
                 "required": [
