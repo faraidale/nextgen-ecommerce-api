@@ -15,6 +15,9 @@ async function getSingle(req, res) {
         const product = await mongodb.getDb().db().collection('products').findOne({
             _id: new ObjectId(req.params.id),
         });
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found.' });
+        }
         return res.status(200).json(product);
     } catch (err) {
         return res.status(500).json({ message: err.message });
@@ -99,9 +102,16 @@ async function updateProduct(req, res) {
 
 async function deleteProduct(req, res) {
     try {
-        await mongodb.getDb().db().collection('products').deleteOne({
+        if (!ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: 'Invalid product ID.' });
+        }
+
+        const result = await mongodb.getDb().db().collection('products').deleteOne({
             _id: new ObjectId(req.params.id),
         });
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: 'Product not found.' });
+        }
         return res.status(204).send();
     } catch (err) {
         return res.status(500).json({ message: err.message });
