@@ -23,7 +23,11 @@ async function getSingle(req, res) {
 
 async function createOrder(req, res) {
     try {
-        const { orderId, userId, productId, quantity, orderStatus, orderDate } = req.body;
+        const { orderId, userId, productId, quantity, orderStatus, orderDate } = req.body ?? {};
+        if ([orderId, userId, productId, quantity, orderStatus, orderDate]
+            .some((field) => field === undefined || field === null)) {
+            return res.status(400).json({ message: 'Validation error: All fields are required.' });
+        }
         const order = { orderId, userId, productId, quantity, orderStatus, orderDate };
         const result = await mongodb.getDb().db().collection('orders').insertOne(order);
         return res.status(201).json({
@@ -37,7 +41,11 @@ async function createOrder(req, res) {
 
 async function updateOrder(req, res) {
     try {
-        const { orderId, userId, productId, quantity, orderStatus, orderDate } = req.body;
+        const { orderId, userId, productId, quantity, orderStatus, orderDate } = req.body ?? {};
+        if ([orderId, userId, productId, quantity, orderStatus, orderDate]
+            .some((field) => field === undefined || field === null)) {
+            return res.status(400).json({ message: 'Validation error: All fields are required.' });
+        }
         const order = { orderId, userId, productId, quantity, orderStatus, orderDate };
         await mongodb.getDb().db().collection('orders').replaceOne(
             { _id: new ObjectId(req.params.id) },
