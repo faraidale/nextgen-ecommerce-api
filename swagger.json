@@ -268,41 +268,55 @@
             "ProductInput": {
                 "type": "object",
                 "required": [
-                    "productName",
+                    "name",
                     "description",
                     "price",
-                    "category",
-                    "stockQuantity",
-                    "manufacturer",
-                    "dateAdded",
-                    "isActive"
+                    "brand",
+                    "stock",
+                    "location",
+                    "date"
                 ],
                 "properties": {
-                    "productName": {
-                        "type": "string"
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "example": "Updated Name"
                     },
                     "description": {
-                        "type": "string"
+                        "type": "string",
+                        "minLength": 2,
+                        "example": "Updated description"
                     },
                     "price": {
                         "type": "number",
-                        "format": "double"
+                        "format": "double",
+                        "minimum": 0,
+                        "example": 199.99
                     },
-                    "category": {
-                        "type": "string"
-                    },
-                    "stockQuantity": {
-                        "type": "integer"
-                    },
-                    "manufacturer": {
-                        "type": "string"
-                    },
-                    "dateAdded": {
+                    "brand": {
                         "type": "string",
-                        "format": "date-time"
+                        "minLength": 2,
+                        "example": "UpdatedBrand"
                     },
-                    "isActive": {
-                        "type": "boolean"
+                    "stock": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "example": 20
+                    },
+                    "isAvailable": {
+                        "type": "boolean",
+                        "default": true,
+                        "example": false
+                    },
+                    "location": {
+                        "type": "string",
+                        "minLength": 2,
+                        "example": "Updated Location"
+                    },
+                    "date": {
+                        "type": "string",
+                        "pattern": "^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/\\d{4}$",
+                        "example": "15/05/2026"
                     }
                 }
             },

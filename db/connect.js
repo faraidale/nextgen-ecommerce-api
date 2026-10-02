@@ -7,7 +7,7 @@ function initDb(callback) {
 
     client.connect()
         .then(() => {
-            db = client;
+            db = client.db();
             callback(null);
         })
         .catch((error) => callback(error));
