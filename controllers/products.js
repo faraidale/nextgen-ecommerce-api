@@ -32,7 +32,13 @@ async function createProduct(req, res) {
             manufacturer,
             dateAdded,
             isActive,
-        } = req.body;
+        } = req.body ?? {};
+        if (
+            [productName, description, price, category, stockQuantity, manufacturer, dateAdded, isActive]
+                .some((field) => field === undefined || field === null)
+        ) {
+            return res.status(400).json({ message: 'Validation error: All fields are required.' });
+        }
         const product = {
             productName,
             description,
@@ -64,7 +70,13 @@ async function updateProduct(req, res) {
             manufacturer,
             dateAdded,
             isActive,
-        } = req.body;
+        } = req.body ?? {};
+        if (
+            [productName, description, price, category, stockQuantity, manufacturer, dateAdded, isActive]
+                .some((field) => field === undefined || field === null)
+        ) {
+            return res.status(400).json({ message: 'Validation error: All fields are required.' });
+        }
         const product = {
             productName,
             description,
