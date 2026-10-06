@@ -19,7 +19,7 @@ const validateReview = (data) => {
     const { rating, text, author, date, productId } = data;
 
     // Required checks (missing, null, or empty string)
-    if (rating === undefined || rating === null) {
+    if (rating === undefined || rating === null || rating === "") {
         throw new ValidationError('Rating is required.');
     }
     if (text === undefined || text === null || text === '') {
