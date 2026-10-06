@@ -164,18 +164,9 @@ const updateProduct = async (req, res) => {
             location: req.body.location,
             date: req.body.date,
         };
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
 
-        const product = await Product.updateById(req.params.id, productData);
-
-        if (!product) {
-            return res.status(404).json({ error: 'Product not found' });
-        }
-
-        res.status(200).json(product);
-    } catch (error) {
-        res.status(error.name === 'ValidationError' ? 400 : 500).json({
-            error: getErrorMessage(error, 'Unable to update product'),
-        });
     }
 };
 
