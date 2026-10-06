@@ -1,0 +1,181 @@
+### PRODUCTS
+
+# GET all products
+GET http://localhost:8080/products
+
+### GET product by ID (valid 24-char ObjectId)
+GET http://localhost:8080/products/507f1f77bcf86cd799439011
+
+### GET product by ID (invalid format -> 400)
+GET http://localhost:8080/products/12345
+
+### POST create product (valid -> 201)
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "Wireless Headphones",
+  "description": "Noise cancelling headphones",
+  "price": 199.99,
+  "brand": "SoundMax",
+  "stock": 50,
+  "isAvailable": true,
+  "location": "Warehouse A",
+  "date": "15/05/2026"
+}
+
+### POST create product (missing fields -> 400)
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "Bad Product"
+}
+
+### PUT update product (valid -> 200)
+PUT http://localhost:8080/products/507f1f77bcf86cd799439011
+Content-Type: application/json
+
+{
+  "name": "Updated Headphones",
+  "description": "Updated description",
+  "price": 149.99,
+  "brand": "SoundMax",
+  "stock": 30,
+  "isAvailable": false,
+  "location": "Warehouse B",
+  "date": "20/06/2026"
+}
+
+### PUT update product (invalid price -> 400)
+PUT http://localhost:8080/products/507f1f77bcf86cd799439011
+Content-Type: application/json
+
+{
+  "name": "Updated Headphones",
+  "description": "Updated description",
+  "price": -5,
+  "brand": "SoundMax",
+  "stock": 30,
+  "isAvailable": false,
+  "location": "Warehouse B",
+  "date": "20/06/2026"
+}
+
+### DELETE product
+DELETE http://localhost:8080/products/507f1f77bcf86cd799439011
+
+### ORDERS
+
+# GET all orders
+GET http://localhost:8080/orders
+
+### GET order by ID
+GET http://localhost:8080/orders/507f1f77bcf86cd799439012
+
+### POST create order (valid -> 201)
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "orderId": "ORD-1001",
+  "userId": "USR-001",
+  "productId": "PRD-001",
+  "quantity": 2,
+  "orderStatus": "shipped",
+  "orderDate": "2026-10-01T10:00:00.000Z"
+}
+
+### POST create order (missing fields -> 400)
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "orderId": "ORD-1002"
+}
+
+### PUT update order (valid -> 204)
+PUT http://localhost:8080/orders/507f1f77bcf86cd799439012
+Content-Type: application/json
+
+{
+  "orderId": "ORD-1001",
+  "userId": "USR-001",
+  "productId": "PRD-002",
+  "quantity": 1,
+  "orderStatus": "delivered",
+  "orderDate": "2026-10-02T14:30:00.000Z"
+}
+
+### DELETE order
+DELETE http://localhost:8080/orders/507f1f77bcf86cd799439012
+
+### REVIEWS
+
+# GET all reviews
+GET http://localhost:8080/reviews
+
+### GET review by ID
+GET http://localhost:8080/reviews/507f1f77bcf86cd799439013
+
+### GET review by ID (invalid format -> 400)
+GET http://localhost:8080/reviews/6ac4a380cc724d3ab9426f41
+
+### POST create review (valid -> 201)
+POST http://localhost:8080/reviews
+Content-Type: application/json
+
+{
+  "rating": 5,
+  "text": "Excellent product, highly recommend!",
+  "author": "John Smith",
+  "date": "2026-10-02T08:00:00.000Z",
+  "productId": "PRD-001"
+}
+
+### POST create review (rating out of range -> 400)
+POST http://localhost:8080/reviews
+Content-Type: application/json
+
+{
+  "rating": 6,
+  "text": "Excellent product",
+  "author": "John Smith",
+  "date": "2026-10-02T08:00:00.000Z",
+  "productId": "PRD-001"
+}
+
+### POST create review (missing fields -> 400)
+POST http://localhost:8080/reviews
+Content-Type: application/json
+
+{
+  "rating": 4
+}
+
+### PUT update review (valid -> 200)
+PUT http://localhost:8080/reviews/507f1f77bcf86cd799439013
+Content-Type: application/json
+
+{
+  "rating": 3,
+  "text": "Good value for money",
+  "author": "Jane Doe",
+  "date": "2026-10-03T09:15:00.000Z",
+  "productId": "PRD-002"
+}
+
+### PUT update review (invalid rating type -> 400)
+PUT http://localhost:8080/reviews/507f1f77bcf86cd799439013
+Content-Type: application/json
+
+{
+  "rating": "five",
+  "text": "Good value for money",
+  "author": "Jane Doe",
+  "date": "2026-10-03T09:15:00.000Z",
+  "productId": "PRD-002"
+}
+
+### DELETE review
+DELETE http://localhost:8080/reviews/507f1f77bcf86cd799439013
