@@ -1,0 +1,34 @@
+### Get All Reviews
+GET http://localhost:8080/reviews
+
+### Get Single Review
+GET http://localhost:8080/reviews/6ac7650f1f0ade46f8e12f50
+
+### Create Review
+POST http://localhost:8080/reviews
+Content-Type: application/json
+
+{
+  "productId": "60f4e7c5e4b0a8b3f8d2c1a1",
+  "userId": "60f4e7c5e4b0a8b3f8d2c1a2",
+  "rating": 5,
+  "title": "Excellent product!",
+  "comment": "This is a great product, highly recommend it to everyone.",
+  "reviewDate": "2026-10-01"
+}
+
+### Update Review
+PUT http://localhost:8080/reviews/6ac7676d04033d6a2cb457a4
+Content-Type: application/json
+
+{
+  "productId": "60f4e7c5e4b0a8b3f8d2c1a1",
+  "userId": "60f4e7c5e4b0a8b3f8d2c1a2",
+  "rating": 4,
+  "title": "Updated title",
+  "comment": "Changed my mind, still good but not perfect.",
+  "reviewDate": "2026-10-02"
+}
+
+### Delete Review
+DELETE http://localhost:8080/reviews/6ac7676d04033d6a2cb457a4
