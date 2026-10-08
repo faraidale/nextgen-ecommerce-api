@@ -4,6 +4,13 @@
         "title": "NextGen E-Commerce API",
         "version": "1.0.0"
     },
+    "tags": [
+        { "name": "Authentication" },
+        { "name": "Products" },
+        { "name": "Orders" },
+        { "name": "Users" },
+        { "name": "Reviews" }
+    ],
     "paths": {
         "/reviews": {
             "get": {
