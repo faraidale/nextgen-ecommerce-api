@@ -213,6 +213,103 @@
                     }
                 }
             }
+        },
+        "/users": {
+            "get": {
+                "summary": "Get all users",
+                "description": "Returns all users.",
+                "responses": {
+                    "200": {
+                        "description": "Users retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a user",
+                "description": "Creates a user.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully."
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "The user ID.",
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get a user by ID",
+                "description": "Returns a single user by ID.",
+                "responses": {
+                    "200": {
+                        "description": "User retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a user",
+                "description": "Replaces a user by ID.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "User updated successfully."
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a user",
+                "description": "Deletes a user by ID.",
+                "responses": {
+                    "204": {
+                        "description": "User deleted successfully."
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -317,6 +414,47 @@
                             "_id": {
                                 "type": "string",
                                 "description": "MongoDB product ID."
+                            }
+                        }
+                    }
+                ]
+            },
+            "UserInput": {
+                "type": "object",
+                "required": [
+                    "oauthId",
+                    "displayName",
+                    "email",
+                    "joinDate"
+                ],
+                "properties": {
+                    "oauthId": {
+                        "type": "string"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "joinDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "User": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/UserInput"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "_id": {
+                                "type": "string",
+                                "description": "MongoDB user ID."
                             }
                         }
                     }
