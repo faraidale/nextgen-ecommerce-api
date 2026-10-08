@@ -5,16 +5,28 @@
         "version": "1.0.0"
     },
     "tags": [
-        { "name": "Authentication" },
-        { "name": "Products" },
-        { "name": "Orders" },
-        { "name": "Users" },
-        { "name": "Reviews" }
+        {
+            "name": "Authentication"
+        },
+        {
+            "name": "Products"
+        },
+        {
+            "name": "Orders"
+        },
+        {
+            "name": "Users"
+        },
+        {
+            "name": "Reviews"
+        }
     ],
     "paths": {
         "/reviews": {
             "get": {
-                "tags": ["Reviews"],
+                "tags": [
+                    "Reviews"
+                ],
                 "summary": "Get all reviews",
                 "description": "Returns all reviews.",
                 "responses": {
@@ -24,7 +36,9 @@
                             "application/json": {
                                 "schema": {
                                     "type": "array",
-                                    "items": { "$ref": "#/components/schemas/Review" }
+                                    "items": {
+                                        "$ref": "#/components/schemas/Review"
+                                    }
                                 }
                             }
                         }
@@ -32,31 +46,49 @@
                 }
             },
             "post": {
-                "tags": ["Reviews"],
+                "tags": [
+                    "Reviews"
+                ],
                 "summary": "Create a review",
                 "description": "Creates a review.",
-                "security": [{ "githubAuth": [] }],
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
-                            "schema": { "$ref": "#/components/schemas/ReviewInput" }
+                            "schema": {
+                                "$ref": "#/components/schemas/ReviewInput"
+                            }
                         }
                     }
                 },
-                "responses": { "201": { "description": "Review created successfully." } }
+                "responses": {
+                    "201": {
+                        "description": "Review created successfully."
+                    }
+                }
             }
         },
         "/reviews/{id}": {
-            "parameters": [{
-                "name": "id",
-                "in": "path",
-                "required": true,
-                "description": "The review ID.",
-                "schema": { "type": "string" }
-            }],
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "The review ID.",
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
             "get": {
-                "tags": ["Reviews"],
+                "tags": [
+                    "Reviews"
+                ],
                 "summary": "Get a review by ID",
                 "description": "Returns a single review by ID.",
                 "responses": {
@@ -64,33 +96,57 @@
                         "description": "Review retrieved successfully.",
                         "content": {
                             "application/json": {
-                                "schema": { "$ref": "#/components/schemas/Review" }
+                                "schema": {
+                                    "$ref": "#/components/schemas/Review"
+                                }
                             }
                         }
                     }
                 }
             },
             "put": {
-                "tags": ["Reviews"],
+                "tags": [
+                    "Reviews"
+                ],
                 "summary": "Update a review",
                 "description": "Replaces a review by ID.",
-                "security": [{ "githubAuth": [] }],
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
-                            "schema": { "$ref": "#/components/schemas/ReviewInput" }
+                            "schema": {
+                                "$ref": "#/components/schemas/ReviewInput"
+                            }
                         }
                     }
                 },
-                "responses": { "204": { "description": "Review updated successfully." } }
+                "responses": {
+                    "204": {
+                        "description": "Review updated successfully."
+                    }
+                }
             },
             "delete": {
-                "tags": ["Reviews"],
+                "tags": [
+                    "Reviews"
+                ],
                 "summary": "Delete a review",
                 "description": "Deletes a review by ID.",
-                "security": [{ "githubAuth": [] }],
-                "responses": { "204": { "description": "Review deleted successfully." } }
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Review deleted successfully."
+                    }
+                }
             }
         },
         "/login": {
@@ -159,7 +215,10 @@
                             }
                         }
                     }
-                }
+                },
+                "tags": [
+                    "Products"
+                ]
             },
             "post": {
                 "summary": "Create a product",
@@ -198,6 +257,9 @@
                     {
                         "githubAuth": []
                     }
+                ],
+                "tags": [
+                    "Products"
                 ]
             }
         },
@@ -227,7 +289,10 @@
                             }
                         }
                     }
-                }
+                },
+                "tags": [
+                    "Products"
+                ]
             },
             "put": {
                 "summary": "Update a product",
@@ -251,6 +316,9 @@
                     {
                         "githubAuth": []
                     }
+                ],
+                "tags": [
+                    "Products"
                 ]
             },
             "delete": {
@@ -265,6 +333,9 @@
                     {
                         "githubAuth": []
                     }
+                ],
+                "tags": [
+                    "Products"
                 ]
             }
         },
@@ -286,7 +357,10 @@
                             }
                         }
                     }
-                }
+                },
+                "tags": [
+                    "Orders"
+                ]
             },
             "post": {
                 "summary": "Create an order",
@@ -310,6 +384,9 @@
                     {
                         "githubAuth": []
                     }
+                ],
+                "tags": [
+                    "Orders"
                 ]
             }
         },
@@ -339,7 +416,10 @@
                             }
                         }
                     }
-                }
+                },
+                "tags": [
+                    "Orders"
+                ]
             },
             "put": {
                 "summary": "Update an order",
@@ -363,6 +443,9 @@
                     {
                         "githubAuth": []
                     }
+                ],
+                "tags": [
+                    "Orders"
                 ]
             },
             "delete": {
@@ -377,6 +460,9 @@
                     {
                         "githubAuth": []
                     }
+                ],
+                "tags": [
+                    "Orders"
                 ]
             }
         },
@@ -398,7 +484,10 @@
                             }
                         }
                     }
-                }
+                },
+                "tags": [
+                    "Users"
+                ]
             },
             "post": {
                 "summary": "Create a user",
@@ -422,6 +511,9 @@
                     {
                         "githubAuth": []
                     }
+                ],
+                "tags": [
+                    "Users"
                 ]
             }
         },
@@ -451,7 +543,10 @@
                             }
                         }
                     }
-                }
+                },
+                "tags": [
+                    "Users"
+                ]
             },
             "put": {
                 "summary": "Update a user",
@@ -475,6 +570,9 @@
                     {
                         "githubAuth": []
                     }
+                ],
+                "tags": [
+                    "Users"
                 ]
             },
             "delete": {
@@ -489,6 +587,9 @@
                     {
                         "githubAuth": []
                     }
+                ],
+                "tags": [
+                    "Users"
                 ]
             }
         }
@@ -497,23 +598,48 @@
         "schemas": {
             "ReviewInput": {
                 "type": "object",
-                "required": ["productId", "userId", "rating", "title", "comment", "reviewDate"],
+                "required": [
+                    "productId",
+                    "userId",
+                    "rating",
+                    "title",
+                    "comment",
+                    "reviewDate"
+                ],
                 "properties": {
-                    "productId": { "type": "string" },
-                    "userId": { "type": "string" },
-                    "rating": { "type": "number" },
-                    "title": { "type": "string" },
-                    "comment": { "type": "string" },
-                    "reviewDate": { "type": "string", "format": "date-time" }
+                    "productId": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "string"
+                    },
+                    "rating": {
+                        "type": "number"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "reviewDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
                 }
             },
             "Review": {
                 "allOf": [
-                    { "$ref": "#/components/schemas/ReviewInput" },
+                    {
+                        "$ref": "#/components/schemas/ReviewInput"
+                    },
                     {
                         "type": "object",
                         "properties": {
-                            "_id": { "type": "string", "description": "MongoDB review ID." }
+                            "_id": {
+                                "type": "string",
+                                "description": "MongoDB review ID."
+                            }
                         }
                     }
                 ]
