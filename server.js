@@ -52,15 +52,19 @@ app.get('/', (req, res) => {
     res.send('Welcome to the NextGen E-Commerce API');
 });
 
-const port = process.env.PORT || 8080;
+if (require.main === module) {
+    const port = process.env.PORT || 8080;
 
-initDb((error) => {
-    if (error) {
-        console.error(error);
-        return;
-    }
+    initDb((error) => {
+        if (error) {
+            console.error(error);
+            return;
+        }
 
-    app.listen(port, () => {
-        console.log('Connected to DB and listening on port ' + port);
+        app.listen(port, () => {
+            console.log('Connected to DB and listening on port ' + port);
+        });
     });
-});
+}
+
+module.exports = app;
