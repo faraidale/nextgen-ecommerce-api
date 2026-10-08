@@ -5,6 +5,54 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/login": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Start GitHub OAuth login",
+                "responses": {
+                    "200": {
+                        "description": "Login request accepted."
+                    },
+                    "302": {
+                        "description": "Redirects to GitHub for authorization."
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Log out",
+                "responses": {
+                    "200": {
+                        "description": "Logout completed."
+                    },
+                    "302": {
+                        "description": "Redirects to the API root."
+                    }
+                }
+            }
+        },
+        "/github/callback": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Complete GitHub OAuth login",
+                "responses": {
+                    "200": {
+                        "description": "GitHub authorization completed."
+                    },
+                    "302": {
+                        "description": "Redirects after successful login or to API docs on failure."
+                    }
+                }
+            }
+        },
         "/products": {
             "get": {
                 "summary": "Get all products",
@@ -57,7 +105,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ]
             }
         },
         "/products/{id}": {
@@ -105,7 +158,12 @@
                     "204": {
                         "description": "Product updated successfully."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete a product",
@@ -114,7 +172,12 @@
                     "204": {
                         "description": "Product deleted successfully."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ]
             }
         },
         "/orders": {
@@ -154,7 +217,12 @@
                     "201": {
                         "description": "Order created successfully."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ]
             }
         },
         "/orders/{id}": {
@@ -202,7 +270,12 @@
                     "204": {
                         "description": "Order updated successfully."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete an order",
@@ -211,7 +284,12 @@
                     "204": {
                         "description": "Order deleted successfully."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ]
             }
         },
         "/users": {
@@ -251,7 +329,12 @@
                     "201": {
                         "description": "User created successfully."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ]
             }
         },
         "/users/{id}": {
@@ -299,7 +382,12 @@
                     "204": {
                         "description": "User updated successfully."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ]
             },
             "delete": {
                 "summary": "Delete a user",
@@ -308,7 +396,12 @@
                     "204": {
                         "description": "User deleted successfully."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "githubAuth": []
+                    }
+                ]
             }
         }
     },
@@ -459,6 +552,14 @@
                         }
                     }
                 ]
+            }
+        },
+        "securitySchemes": {
+            "githubAuth": {
+                "type": "apiKey",
+                "in": "cookie",
+                "name": "connect.sid",
+                "description": "GitHub OAuth login session cookie. Authenticate through GET /login first."
             }
         }
     }
