@@ -5,6 +5,87 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/reviews": {
+            "get": {
+                "tags": ["Reviews"],
+                "summary": "Get all reviews",
+                "description": "Returns all reviews.",
+                "responses": {
+                    "200": {
+                        "description": "Reviews retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": { "$ref": "#/components/schemas/Review" }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Reviews"],
+                "summary": "Create a review",
+                "description": "Creates a review.",
+                "security": [{ "githubAuth": [] }],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/ReviewInput" }
+                        }
+                    }
+                },
+                "responses": { "201": { "description": "Review created successfully." } }
+            }
+        },
+        "/reviews/{id}": {
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "The review ID.",
+                "schema": { "type": "string" }
+            }],
+            "get": {
+                "tags": ["Reviews"],
+                "summary": "Get a review by ID",
+                "description": "Returns a single review by ID.",
+                "responses": {
+                    "200": {
+                        "description": "Review retrieved successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/Review" }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Reviews"],
+                "summary": "Update a review",
+                "description": "Replaces a review by ID.",
+                "security": [{ "githubAuth": [] }],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/ReviewInput" }
+                        }
+                    }
+                },
+                "responses": { "204": { "description": "Review updated successfully." } }
+            },
+            "delete": {
+                "tags": ["Reviews"],
+                "summary": "Delete a review",
+                "description": "Deletes a review by ID.",
+                "security": [{ "githubAuth": [] }],
+                "responses": { "204": { "description": "Review deleted successfully." } }
+            }
+        },
         "/login": {
             "get": {
                 "tags": [
@@ -407,6 +488,29 @@
     },
     "components": {
         "schemas": {
+            "ReviewInput": {
+                "type": "object",
+                "required": ["productId", "userId", "rating", "title", "comment", "reviewDate"],
+                "properties": {
+                    "productId": { "type": "string" },
+                    "userId": { "type": "string" },
+                    "rating": { "type": "number" },
+                    "title": { "type": "string" },
+                    "comment": { "type": "string" },
+                    "reviewDate": { "type": "string", "format": "date-time" }
+                }
+            },
+            "Review": {
+                "allOf": [
+                    { "$ref": "#/components/schemas/ReviewInput" },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "_id": { "type": "string", "description": "MongoDB review ID." }
+                        }
+                    }
+                ]
+            },
             "OrderInput": {
                 "type": "object",
                 "required": [
